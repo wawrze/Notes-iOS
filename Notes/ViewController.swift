@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import Speech
 
-class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SFSpeechRecognizerDelegate {
 
+  
     // MARK: Properties
     @IBOutlet weak var titleInput: UITextField!
     @IBOutlet weak var bodyInput: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    @IBOutlet weak var microphoneImage: UIButton!
     
     //@IBOutlet weak var googleSection: UIStackView!
     @IBOutlet weak var googleCheckBox: CheckBox!
@@ -27,7 +31,59 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
         titleInput.delegate = self
         bodyInput.delegate = self
     }
-
+    
+    // MARK: VoiceRecognition
+    // from https://medium.com/ios-os-x-development/speech-recognition-with-swift-in-ios-10-50d5f4e59c48
+    let audioEngine = AVAudioEngine()
+    let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    let request = SFSpeechAudioBufferRecognitionRequest()
+    var recognitionTask: SFSpeechRecognitionTask?
+    var recognitionInProgress = false
+    
+    @IBAction func microphoneButton(_ sender: UIButton) {
+        if (recognitionInProgress) {
+            recognitionInProgress = false
+            let image = UIImage(named: "ic_microphone")?.withRenderingMode(.alwaysTemplate)
+            microphoneImage.setImage(image, for: .normal)
+            microphoneImage.tintColor = UIColor.black
+            self.recognitionTask?.finish()
+        } else {
+            recognitionInProgress = true
+            let image = UIImage(named: "ic_microphone")?.withRenderingMode(.alwaysTemplate)
+            microphoneImage.setImage(image, for: .normal)
+            microphoneImage.tintColor = UIColor.red
+            self.recordAndRecognizeSpeech()
+        }
+    }
+    
+    func recordAndRecognizeSpeech() {
+        let node = audioEngine.inputNode
+        let recordingFormat = node.outputFormat(forBus: 0)
+        node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
+            self.request.append(buffer)
+        }
+        audioEngine.prepare()
+        do {
+            try audioEngine.start()
+        } catch {
+            return print(error)
+        }
+        guard let myRecognizer = SFSpeechRecognizer() else {
+            return
+        }
+        if !myRecognizer.isAvailable {
+            return
+        }
+        recognitionTask = speechRecognizer?.recognitionTask(with: request, resultHandler: { result, error in
+            if let result = result {
+                let bestString = result.bestTranscription.formattedString
+                self.bodyInput.text = self.bodyInput.text + " " + bestString
+            } else if let error = error {
+                print(error)
+            }
+        })
+    }
+    
     // MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -42,10 +98,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
     
     // MARK: Actions
     @IBAction func cameraButton(_ sender: UIButton) {
-
-    }
-    
-    @IBAction func microphoneButton(_ sender: UIButton) {
 
     }
     

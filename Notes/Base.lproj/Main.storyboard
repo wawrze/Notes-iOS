@@ -102,12 +102,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Iwp-gD-in7">
                                         <rect key="frame" x="0.0" y="501" width="335" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2se-TL-b5H" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2se-TL-b5H" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="dl6-7B-TRU"/>
                                                     <constraint firstAttribute="height" constant="30" id="wQf-fJ-qq5"/>
                                                 </constraints>
+                                                <state key="normal" image="ic_check_box"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Dodaj do kalendarza Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpK-wP-sbd">
                                                 <rect key="frame" x="38" y="0.0" width="297" height="30"/>
@@ -120,13 +121,14 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LUa-Bo-7Um">
                                         <rect key="frame" x="0.0" y="539" width="335" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgA-Vt-1MC" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgA-Vt-1MC" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="CQW-rP-TLk"/>
                                                     <constraint firstAttribute="height" constant="30" id="cUi-GV-UeP"/>
                                                 </constraints>
                                                 <size key="titleShadowOffset" width="16" height="16"/>
+                                                <state key="normal" image="ic_check_box_outline_blank"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Zabezpieczona" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YI-O0-u8M">
                                                 <rect key="frame" x="38" y="0.0" width="297" height="30"/>
@@ -138,7 +140,10 @@
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpU-eF-zSp">
                                         <rect key="frame" x="0.0" y="577" width="335" height="30"/>
-                                        <state key="normal" title="Dodaj notatkę"/>
+                                        <color key="backgroundColor" red="0.23158252472756558" green="0.39608160431619488" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Dodaj notatkę">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="addButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Qf-3a-THw"/>
                                         </connections>
@@ -159,6 +164,7 @@
                         <outlet property="bodyInput" destination="Dy7-za-o4p" id="6Yz-GD-HP6"/>
                         <outlet property="datePicker" destination="j4s-cb-NVq" id="ZJX-sO-7wF"/>
                         <outlet property="googleCheckBox" destination="2se-TL-b5H" id="B86-LQ-akz"/>
+                        <outlet property="microphoneImage" destination="zGp-jC-pbf" id="78P-Qu-uwU"/>
                         <outlet property="securityCheckBox" destination="mgA-Vt-1MC" id="z6a-mo-2a7"/>
                         <outlet property="titleInput" destination="sXX-Vw-aa2" id="BCn-5l-m8O"/>
                     </connections>
@@ -170,6 +176,8 @@
     </scenes>
     <resources>
         <image name="ic_camera" width="256" height="256"/>
+        <image name="ic_check_box" width="256" height="256"/>
+        <image name="ic_check_box_outline_blank" width="256" height="256"/>
         <image name="ic_microphone" width="256" height="256"/>
     </resources>
 </document>

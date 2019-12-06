@@ -34,6 +34,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Zapis mówionego tekstu do treści notatki.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Rozpoznawanie mowy po wciśnięciu przycisku.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

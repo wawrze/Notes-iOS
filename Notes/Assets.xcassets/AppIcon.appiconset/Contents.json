@@ -1,111 +1,93 @@
 {
   "images" : [
     {
+      "idiom" : "iphone",
       "size" : "20x20",
-      "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks.png",
       "scale" : "2x"
     },
     {
+      "idiom" : "iphone",
       "size" : "20x20",
-      "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-1.png",
       "scale" : "3x"
     },
     {
-      "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-2.png",
+      "size" : "29x29",
       "scale" : "2x"
     },
     {
-      "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-3.png",
+      "size" : "29x29",
       "scale" : "3x"
     },
     {
-      "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-4.png",
+      "size" : "40x40",
       "scale" : "2x"
     },
     {
-      "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-5.png",
+      "size" : "40x40",
       "scale" : "3x"
     },
     {
+      "idiom" : "iphone",
       "size" : "60x60",
-      "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-6.png",
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-7.png",
+      "size" : "60x60",
       "scale" : "3x"
     },
     {
+      "idiom" : "ipad",
       "size" : "20x20",
-      "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-8.png",
       "scale" : "1x"
     },
     {
+      "idiom" : "ipad",
       "size" : "20x20",
-      "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-9.png",
       "scale" : "2x"
     },
     {
+      "idiom" : "ipad",
       "size" : "29x29",
-      "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-10.png",
       "scale" : "1x"
     },
     {
+      "idiom" : "ipad",
       "size" : "29x29",
-      "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-11.png",
       "scale" : "2x"
     },
     {
-      "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-12.png",
+      "size" : "40x40",
       "scale" : "1x"
     },
     {
-      "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-13.png",
+      "size" : "40x40",
       "scale" : "2x"
     },
     {
-      "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-14.png",
+      "size" : "76x76",
       "scale" : "1x"
     },
     {
-      "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-15.png",
+      "size" : "76x76",
       "scale" : "2x"
     },
     {
+      "idiom" : "ipad",
       "size" : "83.5x83.5",
-      "idiom" : "ipad",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-16.png",
       "scale" : "2x"
     },
     {
-      "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "calendar-with-spring-binder-and-date-blocks-17.png",
+      "size" : "1024x1024",
       "scale" : "1x"
     }
   ],

@@ -10,8 +10,11 @@ import UIKit
 import Speech
 
 class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SFSpeechRecognizerDelegate {
-
   
+    var db = DBHelper.get()
+    
+    var notes:[NoteModel] = []
+    
     // MARK: Properties
     @IBOutlet weak var titleInput: UITextField!
     @IBOutlet weak var bodyInput: UITextView!
@@ -102,27 +105,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
     }
     
     @IBAction func addButton(_ sender: UIButton) {
-        let title = "title: " + titleInput.text!
-        NSLog(title)
-        let body = "body: " + bodyInput.text
-        NSLog(body)
-        if (securityCheckBox.isChecked) {
-            NSLog("security checked")
-        } else {
-            NSLog("security unchecked")
+        if (titleInput.text != nil && !titleInput.text!.isEmpty) {
+            let id_ = db.read().count + 1
+            db.insertNote(id: id_, title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: securityCheckBox.isChecked, done: false)
         }
-        if (googleCheckBox.isChecked) {
-            NSLog("google checked")
-        } else {
-            NSLog("google unchecked")
-        }
-        let date = datePicker.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .full
-        var dateString = "date: "
-        dateString += dateFormatter.string(from: date)
-        NSLog(dateString)
+        // TODO: send to Google if checkbox is checked
     }
     
 }

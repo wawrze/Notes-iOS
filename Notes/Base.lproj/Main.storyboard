@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Aib-No-eMh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,120 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Twoje notatki-->
+        <scene sceneID="Vxg-DH-CHR">
+            <objects>
+                <tableViewController id="KmE-Xg-ARu" customClass="NoteTableViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4Zi-b0-tzA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" red="1" green="0.73332880320000005" blue="0.62911463720000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoteTableViewCell" rowHeight="46" id="IB8-RA-hUH" customClass="NoteTableViewCell" customModule="Notes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IB8-RA-hUH" id="Jm3-Rz-QX6">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="45.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Glq-J6-hgo">
+                                            <rect key="frame" x="20" y="8" width="335" height="30"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubW-Z6-0w1" customClass="CheckBox2" customModule="Notes" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="JK9-LB-kuS"/>
+                                                        <constraint firstAttribute="width" constant="30" id="mXd-Cu-nDy"/>
+                                                    </constraints>
+                                                    <state key="normal" image="ic_check_box"/>
+                                                    <connections>
+                                                        <action selector="doneButton:" destination="IB8-RA-hUH" eventType="touchUpInside" id="Mnn-oR-5qg"/>
+                                                    </connections>
+                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kq2-xw-HPg">
+                                                    <rect key="frame" x="38" y="0.0" width="259" height="30"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQe-yz-CBx">
+                                                            <rect key="frame" x="0.0" y="0.0" width="259" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="wy6-Ge-4w3"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="middleTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMJ-eY-RAt">
+                                                            <rect key="frame" x="0.0" y="15" width="259" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="OJO-er-fto"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="KMJ-eY-RAt" firstAttribute="leading" secondItem="kq2-xw-HPg" secondAttribute="leading" constant="8" id="HjT-7h-Mfd"/>
+                                                        <constraint firstItem="KMJ-eY-RAt" firstAttribute="leading" secondItem="kq2-xw-HPg" secondAttribute="leading" constant="8" id="aSy-T2-ubi"/>
+                                                        <constraint firstItem="KMJ-eY-RAt" firstAttribute="centerX" secondItem="kq2-xw-HPg" secondAttribute="centerX" id="ucc-ce-5CS"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fl4-uy-6uV">
+                                                    <rect key="frame" x="305" y="0.0" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="fsn-Pe-Tzi"/>
+                                                        <constraint firstAttribute="height" constant="30" id="lNP-lC-xWy"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button" image="ic_trash"/>
+                                                    <connections>
+                                                        <action selector="editButton:" destination="IB8-RA-hUH" eventType="touchUpInside" id="uHW-SI-pXC"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.73332880320000005" blue="0.62911463720000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Glq-J6-hgo" secondAttribute="trailing" constant="20" id="J9p-9z-1Od"/>
+                                        <constraint firstItem="Glq-J6-hgo" firstAttribute="centerY" secondItem="Jm3-Rz-QX6" secondAttribute="centerY" id="syA-Fj-9by"/>
+                                        <constraint firstItem="Glq-J6-hgo" firstAttribute="leading" secondItem="Jm3-Rz-QX6" secondAttribute="leading" constant="20" id="uVD-DO-LlJ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.73332880320000005" blue="0.62911463720000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dateLabel" destination="KMJ-eY-RAt" id="YDl-VQ-m3Q"/>
+                                    <outlet property="doneCheckBox" destination="ubW-Z6-0w1" id="Fk6-ii-DSF"/>
+                                    <outlet property="titleLabel" destination="UQe-yz-CBx" id="OI1-Ax-2Hk"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KmE-Xg-ARu" id="7bI-9K-s6R"/>
+                            <outlet property="delegate" destination="KmE-Xg-ARu" id="vpw-MB-3Lf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Twoje notatki" id="4AJ-Tc-qfl">
+                        <barButtonItem key="leftBarButtonItem" image="ic_google" style="plain" id="bLQ-IR-bx6">
+                            <connections>
+                                <action selector="googleLogIn:" destination="KmE-Xg-ARu" id="npX-O6-soI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="ic_plus" width="30" style="plain" id="KWU-Mp-EUV">
+                            <connections>
+                                <segue destination="wUG-VO-nEi" kind="presentation" identifier="AddNote" id="9ND-3c-pWD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="googleImage" destination="bLQ-IR-bx6" id="U3L-Y7-bJN"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k8V-Ig-tgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-207.19999999999999" y="89.505247376311857"/>
+        </scene>
+        <!--Nowa notatka-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +132,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fYp-Mf-W1R">
-                                <rect key="frame" x="20" y="40" width="335" height="607"/>
+                                <rect key="frame" x="20" y="84" width="335" height="563"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tytuł" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nM4-Rn-ppn">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="20.5"/>
@@ -27,31 +140,31 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tytuł notatki" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sXX-Vw-aa2">
-                                        <rect key="frame" x="0.0" y="28.5" width="335" height="223.5"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tytuł notatki" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sXX-Vw-aa2">
+                                        <rect key="frame" x="0.0" y="28.5" width="335" height="217.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Treść" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0g-5P-szy">
-                                        <rect key="frame" x="0.0" y="260" width="335" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treść" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0g-5P-szy">
+                                        <rect key="frame" x="0.0" y="254" width="335" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PcD-tG-80b">
-                                        <rect key="frame" x="0.0" y="288.5" width="335" height="68"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PcD-tG-80b">
+                                        <rect key="frame" x="0.0" y="282.5" width="335" height="68"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Dy7-za-o4p">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Dy7-za-o4p">
                                                 <rect key="frame" x="0.0" y="0.0" width="297" height="68"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                             </textView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bud-ts-S2F">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bud-ts-S2F">
                                                 <rect key="frame" x="305" y="0.0" width="30" height="68"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ic2-9i-gKX">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ic2-9i-gKX">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="1AF-37-J6T"/>
@@ -62,7 +175,7 @@
                                                             <action selector="cameraButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pnb-9h-XiX"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGp-jC-pbf">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGp-jC-pbf">
                                                         <rect key="frame" x="0.0" y="38" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="IDL-Vr-MMJ"/>
@@ -84,14 +197,14 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Data i godzina" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pet-nf-itb">
-                                        <rect key="frame" x="0.0" y="364.5" width="335" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data i godzina" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pet-nf-itb">
+                                        <rect key="frame" x="0.0" y="358.5" width="335" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="j4s-cb-NVq">
-                                        <rect key="frame" x="0.0" y="393" width="335" height="100"/>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="j4s-cb-NVq">
+                                        <rect key="frame" x="0.0" y="387" width="335" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="nty-lY-ejb"/>
                                         </constraints>
@@ -99,10 +212,10 @@
                                             <!--2019-12-06 19:03:45 +0000-->
                                         </date>
                                     </datePicker>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Iwp-gD-in7">
-                                        <rect key="frame" x="0.0" y="501" width="335" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Iwp-gD-in7">
+                                        <rect key="frame" x="0.0" y="495" width="335" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2se-TL-b5H" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2se-TL-b5H" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="dl6-7B-TRU"/>
@@ -110,7 +223,7 @@
                                                 </constraints>
                                                 <state key="normal" image="ic_check_box"/>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Dodaj do kalendarza Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpK-wP-sbd">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dodaj do kalendarza Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpK-wP-sbd">
                                                 <rect key="frame" x="38" y="0.0" width="297" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -118,10 +231,10 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LUa-Bo-7Um">
-                                        <rect key="frame" x="0.0" y="539" width="335" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LUa-Bo-7Um">
+                                        <rect key="frame" x="0.0" y="533" width="335" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgA-Vt-1MC" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgA-Vt-1MC" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="CQW-rP-TLk"/>
@@ -130,7 +243,7 @@
                                                 <size key="titleShadowOffset" width="16" height="16"/>
                                                 <state key="normal" image="ic_check_box_outline_blank"/>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Zabezpieczona" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YI-O0-u8M">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zabezpieczona" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1YI-O0-u8M">
                                                 <rect key="frame" x="38" y="0.0" width="297" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -138,16 +251,6 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpU-eF-zSp">
-                                        <rect key="frame" x="0.0" y="577" width="335" height="30"/>
-                                        <color key="backgroundColor" red="0.23158252472756558" green="0.39608160431619488" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Dodaj notatkę">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Qf-3a-THw"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -160,24 +263,79 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Nowa notatka" id="6L0-jh-i6l">
+                        <barButtonItem key="leftBarButtonItem" image="ic_cancel" width="30" id="nQ1-DV-uxB">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="zrL-Z7-OS0"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="ic_save" width="30" style="done" id="j4J-l6-ngO">
+                            <connections>
+                                <segue destination="tDa-dp-x4n" kind="unwind" unwindAction="unwindToNotListWithSender:" id="EP8-Xe-SpJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bodyInput" destination="Dy7-za-o4p" id="6Yz-GD-HP6"/>
                         <outlet property="datePicker" destination="j4s-cb-NVq" id="ZJX-sO-7wF"/>
                         <outlet property="googleCheckBox" destination="2se-TL-b5H" id="B86-LQ-akz"/>
                         <outlet property="microphoneImage" destination="zGp-jC-pbf" id="78P-Qu-uwU"/>
+                        <outlet property="saveButton" destination="j4J-l6-ngO" id="qkI-dy-8YW"/>
                         <outlet property="securityCheckBox" destination="mgA-Vt-1MC" id="z6a-mo-2a7"/>
                         <outlet property="titleInput" destination="sXX-Vw-aa2" id="BCn-5l-m8O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="tDa-dp-x4n" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="121" y="90"/>
+            <point key="canvasLocation" x="1151" y="89"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jLv-sv-9AN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aib-No-eMh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i4Z-25-nqZ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KmE-Xg-ARu" kind="relationship" relationship="rootViewController" id="zah-6s-AIY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iec-6u-hEK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-946" y="90"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LrJ-qU-aso">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wUG-VO-nEi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hgn-qW-xs3">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="cRp-ip-ovd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8HQ-88-c5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="459.19999999999999" y="89.055472263868069"/>
         </scene>
     </scenes>
     <resources>
         <image name="ic_camera" width="256" height="256"/>
+        <image name="ic_cancel" width="256" height="256"/>
         <image name="ic_check_box" width="256" height="256"/>
         <image name="ic_check_box_outline_blank" width="256" height="256"/>
+        <image name="ic_google" width="256" height="256"/>
         <image name="ic_microphone" width="256" height="256"/>
+        <image name="ic_plus" width="256" height="256"/>
+        <image name="ic_save" width="256" height="256"/>
+        <image name="ic_trash" width="256" height="256"/>
     </resources>
 </document>

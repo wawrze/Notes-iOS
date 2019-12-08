@@ -99,8 +99,51 @@ class DBHelper {
         sqlite3_finalize(insertStatement)
     }
 
+    func updateNote(noteToUpdate: NoteModel) {
+        let notes = read()
+        var noteInDb: NoteModel? = nil
+        for note in notes {
+            if note.id == noteToUpdate.id {
+                noteInDb = note
+            }
+        }
+        if (noteInDb == nil) {
+            return
+        }
+        let updateStatementString = "UPDATE note SET title = ?, body = ?, date = ?, secured = ?, done = ? WHERE Id = \(noteToUpdate.id)"
+        var updateStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
+            sqlite3_bind_text(updateStatement, 1, (noteToUpdate.title as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(updateStatement, 2, (noteToUpdate.body as NSString).utf8String, -1, nil)
+            sqlite3_bind_int64(updateStatement, 3, noteToUpdate.date.millis)
+            var securedInt: Int32
+            if (noteToUpdate.secured) {
+                securedInt = 1
+            } else {
+                securedInt = 0
+            }
+            sqlite3_bind_int(updateStatement, 4, securedInt)
+            var doneInt: Int32
+            if (noteToUpdate.done) {
+                doneInt = 1
+            } else {
+                doneInt = 0
+            }
+            sqlite3_bind_int(updateStatement, 5, doneInt)
+
+            if sqlite3_step(updateStatement) == SQLITE_DONE {
+                print("successfully updated note.")
+            } else {
+                print("could not update note.")
+            }
+        } else {
+            print("UPDATE note could not be prepared.")
+        }
+        sqlite3_finalize(updateStatement)
+    }
+    
     func read() -> [NoteModel] {
-        let queryStatementString = "SELECT * FROM note;"
+        let queryStatementString = "SELECT * FROM note ORDER BY done, date;"
         var queryStatement: OpaquePointer? = nil
         var notes: [NoteModel] = []
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {

@@ -8,19 +8,18 @@
 
 import UIKit
 import Speech
+import os.log
 
 class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SFSpeechRecognizerDelegate {
   
     var db = DBHelper.get()
     
-    var notes:[NoteModel] = []
-    
-    // MARK: Properties
     @IBOutlet weak var titleInput: UITextField!
     @IBOutlet weak var bodyInput: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var microphoneImage: UIButton!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     //@IBOutlet weak var googleSection: UIStackView!
     @IBOutlet weak var googleCheckBox: CheckBox!
@@ -33,9 +32,23 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         
         titleInput.delegate = self
         bodyInput.delegate = self
+        
+        updateSaveButtonState()
     }
     
-    // MARK: VoiceRecognition
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        if (titleInput.text != nil && !titleInput.text!.isEmpty) {
+            let id_ = db.read().count + 1
+            db.insertNote(id: id_, title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: securityCheckBox.isChecked, done: false)
+            // TODO: send to Google if checkbox is checked
+        }
+    }
+    
     // from https://medium.com/ios-os-x-development/speech-recognition-with-swift-in-ios-10-50d5f4e59c48
     let audioEngine = AVAudioEngine()
     let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
@@ -87,29 +100,35 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         })
     }
     
-    // MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    // MARK: UITextViewDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        saveButton.isEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateSaveButtonState()
+    }
+    
+    private func updateSaveButtonState() {
+        let text = titleInput.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
+    }
+    
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         textView.resignFirstResponder()
         return true
     }
     
-    // MARK: Actions
     @IBAction func cameraButton(_ sender: UIButton) {
-
+        // TODO: make document image to get text from it
     }
     
-    @IBAction func addButton(_ sender: UIButton) {
-        if (titleInput.text != nil && !titleInput.text!.isEmpty) {
-            let id_ = db.read().count + 1
-            db.insertNote(id: id_, title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: securityCheckBox.isChecked, done: false)
-        }
-        // TODO: send to Google if checkbox is checked
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
 }

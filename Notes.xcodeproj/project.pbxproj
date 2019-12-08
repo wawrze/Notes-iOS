@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F5EE748239C2BB600725589 /* CheckBox2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5EE747239C2BB600725589 /* CheckBox2.swift */; };
+		5FA490F6239BFFEA0083F33B /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA490F5239BFFEA0083F33B /* NoteTableViewCell.swift */; };
+		5FA490FE239C05CF0083F33B /* NoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA490FD239C05CF0083F33B /* NoteTableViewController.swift */; };
 		5FE5C121239AD74C00BA2051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5C120239AD74C00BA2051 /* AppDelegate.swift */; };
 		5FE5C123239AD74C00BA2051 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5C122239AD74C00BA2051 /* ViewController.swift */; };
 		5FE5C126239AD74C00BA2051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FE5C124239AD74C00BA2051 /* Main.storyboard */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F5EE747239C2BB600725589 /* CheckBox2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox2.swift; sourceTree = "<group>"; };
+		5FA490F5239BFFEA0083F33B /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
+		5FA490FD239C05CF0083F33B /* NoteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewController.swift; sourceTree = "<group>"; };
 		5FE5C11D239AD74C00BA2051 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE5C120239AD74C00BA2051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FE5C122239AD74C00BA2051 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +79,9 @@
 				5FE5C132239ADE9300BA2051 /* CheckBox.swift */,
 				5FE5C139239B140500BA2051 /* NoteModel.swift */,
 				5FE5C13B239B16D100BA2051 /* DBHelper.swift */,
+				5FA490F5239BFFEA0083F33B /* NoteTableViewCell.swift */,
+				5FA490FD239C05CF0083F33B /* NoteTableViewController.swift */,
+				5F5EE747239C2BB600725589 /* CheckBox2.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -157,11 +166,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FA490FE239C05CF0083F33B /* NoteTableViewController.swift in Sources */,
 				5FE5C123239AD74C00BA2051 /* ViewController.swift in Sources */,
 				5FE5C13A239B140500BA2051 /* NoteModel.swift in Sources */,
+				5F5EE748239C2BB600725589 /* CheckBox2.swift in Sources */,
 				5FE5C13C239B16D100BA2051 /* DBHelper.swift in Sources */,
 				5FE5C121239AD74C00BA2051 /* AppDelegate.swift in Sources */,
 				5FE5C133239ADE9300BA2051 /* CheckBox.swift in Sources */,
+				5FA490F6239BFFEA0083F33B /* NoteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

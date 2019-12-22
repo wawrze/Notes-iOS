@@ -20,7 +20,9 @@ class DBHelper {
     
     init() {
         db = openDatabase()
-        createTable()
+        createNoteTable()
+        createGoogleUserTable()
+        createCalendarEventTable()
     }
     
     class func get() -> DBHelper {
@@ -43,7 +45,7 @@ class DBHelper {
         }
     }
     
-    func createTable() {
+    func createNoteTable() {
         let createTableString = "CREATE TABLE IF NOT EXISTS note(Id INTEGER PRIMARY KEY, title TEXT, body TEXT, date UNSIGNED BIG INT, secured INTEGER, done INTEGER);"
         var createTableStatement: OpaquePointer? = nil
         if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
@@ -51,6 +53,36 @@ class DBHelper {
                 print("note table created.")
             } else {
                 print("note table could not be prepared.")
+            }
+        } else {
+            print("CREATE TABLE statement could not be prepared.")
+        }
+        sqlite3_finalize(createTableStatement)
+    }
+    
+    func createGoogleUserTable() {
+        let createTableString = "CREATE TABLE IF NOT EXISTS google_user(Id INTEGER PRIMARY KEY, token TEXT, account_name TEXT, mainCalendar TEXT);"
+        var createTableStatement: OpaquePointer? = nil
+        if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
+            if sqlite3_step(createTableStatement) == SQLITE_DONE {
+                print("google_user table created.")
+            } else {
+                print("google_user table could not be prepared.")
+            }
+        } else {
+            print("CREATE TABLE statement could not be prepared.")
+        }
+        sqlite3_finalize(createTableStatement)
+    }
+    
+    func createCalendarEventTable() {
+        let createTableString = "CREATE TABLE IF NOT EXISTS calendar_event(Id INTEGER PRIMARY KEY, note_id INTEGER, google_user §TEXT);"
+        var createTableStatement: OpaquePointer? = nil
+        if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
+            if sqlite3_step(createTableStatement) == SQLITE_DONE {
+                print("calendar_event table created.")
+            } else {
+                print("calendar_event table could not be prepared.")
             }
         } else {
             print("CREATE TABLE statement could not be prepared.")

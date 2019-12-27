@@ -330,6 +330,92 @@ class DBHelper {
         sqlite3_finalize(deleteStatement)
     }
     
+    func insertGoogleUser(googleUser: GoogleUser) {
+        deleteGoogleUser()
+        let insertStatementString = "INSERT INTO google_user (id, token, accountName, mainCalendar) VALUES (?, ?, ?, ?)"
+        var insertStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
+            sqlite3_bind_int(insertStatement, 0, Int32(googleUser.id))
+            sqlite3_bind_text(insertStatement, 1, (googleUser.token as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 2, (googleUser.accountName as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 3, (googleUser.mainCalendar as NSString).utf8String, -1, nil)
+            if sqlite3_step(insertStatement) == SQLITE_DONE {
+                print("successfully inserted google_user.")
+            } else {
+                print("could not insert google_user.")
+            }
+        } else {
+            print("INSERT google_user could not be prepared.")
+        }
+        sqlite3_finalize(insertStatement)
+    }
+    
+    func deleteGoogleUser() {
+        let deleteStatementString = "DELETE FROM google_user;"
+        var deleteStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) == SQLITE_OK {
+            if sqlite3_step(deleteStatement) == SQLITE_DONE {
+                print("successfully deleted google_user.")
+            } else {
+                print("could not delete google_user.")
+            }
+        } else {
+            print("DELETE google_user statement could not be prepared.")
+        }
+        sqlite3_finalize(deleteStatement)
+    }
+    
+    func getGoogleUser() -> GoogleUser? {
+        let queryStatementString = "SELECT * FROM google_user LIMIT 1;"
+        var queryStatement: OpaquePointer? = nil
+        var googleUser: GoogleUser? = nil
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let id_ = sqlite3_column_int(queryStatement, 0)
+                let token_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 1)))
+                let accountName_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
+                let mainCalendar_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 3)))
+                
+                googleUser = GoogleUser(id: Int(id_), token: token_, accountName: accountName_, mainCalendar: mainCalendar_)
+            }
+        } else {
+            print("SELECT google_user statement could not be prepared.")
+        }
+        sqlite3_finalize(queryStatement)
+        return googleUser
+    }
+    
+    func updateMainCalendar(mainCalendar: String) {
+        let updateStatementString = "UPDATE google_user SET main_calendar = ?"
+        var updateStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
+            sqlite3_bind_text(updateStatement, 1, (mainCalendar as NSString).utf8String, -1, nil)
+            if sqlite3_step(updateStatement) == SQLITE_DONE {
+                print("successfully updated main_calendar.")
+            } else {
+                print("could not update main_calendar.")
+            }
+        } else {
+            print("UPDATE main_calendar could not be prepared.")
+        }
+        sqlite3_finalize(updateStatement)
+    }
+    
+    func getMainCalendar() -> String? {
+        let queryStatementString = "SELECT mainCalendar FROM google_user LIMIT 1;"
+        var queryStatement: OpaquePointer? = nil
+        var mainCalendar: String? = nil
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                mainCalendar = String(describing: String(cString: sqlite3_column_text(queryStatement, 3)))
+            }
+        } else {
+            print("SELECT main_calendar statement could not be prepared.")
+        }
+        sqlite3_finalize(queryStatement)
+        return mainCalendar
+    }
+    
 }
 
 extension Date {

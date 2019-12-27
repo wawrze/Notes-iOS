@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
     @IBOutlet weak var microphoneImage: UIButton!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    //@IBOutlet weak var googleSection: UIStackView!
+    @IBOutlet weak var googleSection: UIStackView!
     @IBOutlet weak var googleCheckBox: CheckBox!
     
     //@IBOutlet weak var securitySection: UIStackView!
@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         bodyInput.delegate = self
         
         updateSaveButtonState()
+        setGoogleSectionVisibility()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -47,6 +48,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
             db.insertNote(title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: isSecureChecked, done: false)
             // TODO: send to Google if checkbox is checked
         }
+    }
+    
+    private func setGoogleSectionVisibility() {
+        let googleUser = db.getGoogleUser()
+        googleSection.isHidden = googleUser == nil
     }
     
     // from https://medium.com/ios-os-x-development/speech-recognition-with-swift-in-ios-10-50d5f4e59c48

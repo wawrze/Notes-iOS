@@ -58,7 +58,7 @@ class NoteTableViewCell: UITableViewCell {
     
     @IBAction func editButton(_ sender: UIButton) {
         if (note != nil) {
-            db.deleteByID(id: note!.id)
+            db.deleteNoteByID(id: note!.id)
         }
         if (tableController != nil) {
             tableController!.loadNotes()

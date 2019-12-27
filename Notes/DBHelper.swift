@@ -46,7 +46,7 @@ class DBHelper {
     }
     
     func createNoteTable() {
-        let createTableString = "CREATE TABLE IF NOT EXISTS note(Id INTEGER PRIMARY KEY, title TEXT, body TEXT, date UNSIGNED BIG INT, secured INTEGER, done INTEGER);"
+        let createTableString = "CREATE TABLE IF NOT EXISTS note(id INTEGER PRIMARY KEY, title TEXT, body TEXT, date UNSIGNED BIG INT, secured INTEGER, done INTEGER);"
         var createTableStatement: OpaquePointer? = nil
         if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
             if sqlite3_step(createTableStatement) == SQLITE_DONE {
@@ -61,7 +61,7 @@ class DBHelper {
     }
     
     func createGoogleUserTable() {
-        let createTableString = "CREATE TABLE IF NOT EXISTS google_user(Id INTEGER PRIMARY KEY, token TEXT, account_name TEXT, mainCalendar TEXT);"
+        let createTableString = "CREATE TABLE IF NOT EXISTS google_user(id INTEGER PRIMARY KEY, token TEXT, account_name TEXT, mainCalendar TEXT);"
         var createTableStatement: OpaquePointer? = nil
         if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
             if sqlite3_step(createTableStatement) == SQLITE_DONE {
@@ -76,7 +76,7 @@ class DBHelper {
     }
     
     func createCalendarEventTable() {
-        let createTableString = "CREATE TABLE IF NOT EXISTS calendar_event(Id TEXT PRIMARY KEY, note_id INTEGER, google_user TEXT);"
+        let createTableString = "CREATE TABLE IF NOT EXISTS calendar_event(id TEXT PRIMARY KEY, note_id INTEGER, google_user TEXT);"
         var createTableStatement: OpaquePointer? = nil
         if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
             if sqlite3_step(createTableStatement) == SQLITE_DONE {
@@ -254,7 +254,7 @@ class DBHelper {
         return note
     }
     
-    func deleteByID(id: Int) {
+    func deleteNoteByID(id: Int) {
         let deleteStatementString = "DELETE FROM note WHERE id = ?;"
         var deleteStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) == SQLITE_OK {
@@ -266,6 +266,66 @@ class DBHelper {
             }
         } else {
             print("DELETE note statement could not be prepared.")
+        }
+        sqlite3_finalize(deleteStatement)
+    }
+    
+    func getCalendarEvents() -> [CalendarEvent] {
+        let queryStatementString = "SELECT * FROM calendar_event;"
+        var queryStatement: OpaquePointer? = nil
+        var calendarEvents: [CalendarEvent] = []
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let id_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 0)))
+                let noteId_ = sqlite3_column_int(queryStatement, 1)
+                let googleUser_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
+
+                let calendarEvent = CalendarEvent(id: id_, noteId: Int(noteId_), googleUser: googleUser_)
+                calendarEvents.append(calendarEvent)
+            }
+        } else {
+            print("SELECT calendar_events statement could not be prepared.")
+        }
+        sqlite3_finalize(queryStatement)
+        return calendarEvents
+    }
+    
+    func insertCalendarEvent(event: CalendarEvent) {
+        let calendarEvents = getCalendarEvents()
+        for ca in calendarEvents {
+            if ca.id == event.id {
+                return
+            }
+        }
+        let insertStatementString = "INSERT INTO calendar_event (id, note_id, google_user) VALUES (?, ?, ?)"
+        var insertStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
+            sqlite3_bind_text(insertStatement, 0, (event.id as NSString).utf8String, -1, nil)
+            sqlite3_bind_int(insertStatement, 1, Int32(event.noteId))
+            sqlite3_bind_text(insertStatement, 2, (event.googleUser as NSString).utf8String, -1, nil)
+            if sqlite3_step(insertStatement) == SQLITE_DONE {
+                print("successfully inserted calendar_event.")
+            } else {
+                print("could not insert calendar_event.")
+            }
+        } else {
+            print("INSERT calendar_event could not be prepared.")
+        }
+        sqlite3_finalize(insertStatement)
+    }
+    
+    func deleteCalendarEventByID(id: String) {
+        let deleteStatementString = "DELETE FROM calendar_event WHERE id = ?;"
+        var deleteStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) == SQLITE_OK {
+            sqlite3_bind_text(deleteStatement, 0, (id as NSString).utf8String, -1, nil)
+            if sqlite3_step(deleteStatement) == SQLITE_DONE {
+                print("successfully deleted calendar_event.")
+            } else {
+                print("could not delete calendar_event.")
+            }
+        } else {
+            print("DELETE calendar_event statement could not be prepared.")
         }
         sqlite3_finalize(deleteStatement)
     }

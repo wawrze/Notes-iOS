@@ -76,7 +76,7 @@ class DBHelper {
     }
     
     func createCalendarEventTable() {
-        let createTableString = "CREATE TABLE IF NOT EXISTS calendar_event(Id INTEGER PRIMARY KEY, note_id INTEGER, google_user §TEXT);"
+        let createTableString = "CREATE TABLE IF NOT EXISTS calendar_event(Id TEXT PRIMARY KEY, note_id INTEGER, google_user TEXT);"
         var createTableStatement: OpaquePointer? = nil
         if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
             if sqlite3_step(createTableStatement) == SQLITE_DONE {
@@ -91,7 +91,7 @@ class DBHelper {
     }
     
     func insertNote(id: Int, title: String, body: String, date: Date, secured: Bool, done: Bool) {
-        let notes = read()
+        let notes = getNotes()
         for note in notes {
             if note.id == id {
                 return
@@ -132,7 +132,7 @@ class DBHelper {
     }
 
     func updateNote(noteToUpdate: NoteModel) {
-        let notes = read()
+        let notes = getNotes()
         var noteInDb: NoteModel? = nil
         for note in notes {
             if note.id == noteToUpdate.id {
@@ -174,8 +174,8 @@ class DBHelper {
         sqlite3_finalize(updateStatement)
     }
     
-    func read() -> [NoteModel] {
-        let queryStatementString = "SELECT * FROM note ORDER BY done, date;"
+    func getNotes() -> [NoteModel] {
+        let queryStatementString = "SELECT n.*, c.id AS calendar_event_id FROM note n LEFT JOIN calendar_event c ON n.id = c.note_id AND c.google_user = (SELECT account_name FROM google_user LIMIT 1) ORDER BY done, date;"
         var queryStatement: OpaquePointer? = nil
         var notes: [NoteModel] = []
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
@@ -196,18 +196,66 @@ class DBHelper {
                 } else {
                     done_ = false
                 }
+                let cEId = sqlite3_column_text(queryStatement, 6)
+                var calendarEventId_: String
+                if (cEId != nil) {
+                    calendarEventId_ = String(describing: String(cString: cEId!))
+                } else {
+                    calendarEventId_ = ""
+                }
                 let note = NoteModel(id: Int(id_), title: title_, body: body_, date: date_, secured: secured_, done: done_)
+                note.calendarEventId = calendarEventId_
                 notes.append(note)
             }
         } else {
-            print("SELECT note statement could not be prepared.")
+            print("SELECT notes statement could not be prepared.")
         }
         sqlite3_finalize(queryStatement)
         return notes
     }
     
+    func getNoteById(id: Int) -> NoteModel? {
+        let queryStatementString = "SELECT n.*, c.id AS calendar_event_id FROM note n LEFT JOIN calendar_event c ON n.id = c.note_id AND c.google_user = (SELECT account_name FROM google_user LIMIT 1) WHERE n.id = ? LIMIT 1;"
+        var queryStatement: OpaquePointer? = nil
+        var note: NoteModel? = nil
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            sqlite3_bind_int(queryStatement, 1, Int32(id))
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let id_ = sqlite3_column_int(queryStatement, 0)
+                let title_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 1)))
+                let body_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
+                let date_ = Date(milliseconds: sqlite3_column_int64(queryStatement, 3))
+                var secured_: Bool
+                if (sqlite3_column_int(queryStatement, 4) == 1) {
+                    secured_ = true
+                } else {
+                    secured_ = false
+                }
+                var done_: Bool
+                if (sqlite3_column_int(queryStatement, 5) == 1) {
+                    done_ = true
+                } else {
+                    done_ = false
+                }
+                let cEId = sqlite3_column_text(queryStatement, 6)
+                var calendarEventId_: String
+                if (cEId != nil) {
+                    calendarEventId_ = String(describing: String(cString: cEId!))
+                } else {
+                    calendarEventId_ = ""
+                }
+                note = NoteModel(id: Int(id_), title: title_, body: body_, date: date_, secured: secured_, done: done_)
+                note?.calendarEventId = calendarEventId_
+            }
+        } else {
+            print("SELECT note statement could not be prepared.")
+        }
+        sqlite3_finalize(queryStatement)
+        return note
+    }
+    
     func deleteByID(id: Int) {
-        let deleteStatementString = "DELETE FROM note WHERE Id = ?;"
+        let deleteStatementString = "DELETE FROM note WHERE id = ?;"
         var deleteStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) == SQLITE_OK {
             sqlite3_bind_int(deleteStatement, 1, Int32(id))

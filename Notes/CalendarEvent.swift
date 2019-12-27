@@ -10,11 +10,11 @@ import Foundation
 
 class CalendarEvent {
     
-    var id: Int = 0
+    var id: String = ""
     var noteId: Int = 0
     var googleUser: String = ""
     
-    init(id: Int, noteId: Int, googleUser: String) {
+    init(id: String, noteId: Int, googleUser: String) {
         self.id = id
         self.noteId = noteId
         self.googleUser = googleUser

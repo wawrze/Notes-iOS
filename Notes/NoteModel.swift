@@ -16,6 +16,7 @@ class NoteModel {
     var date: Date = Date()
     var secured: Bool = false
     var done: Bool = false
+    var calendarEventId: String = ""
     
     init(id: Int, title: String, body: String, date: Date, secured: Bool, done: Bool) {
         self.id = id

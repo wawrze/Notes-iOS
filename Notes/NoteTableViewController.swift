@@ -17,7 +17,7 @@ class NoteTableViewController: UITableViewController {
     private var googleLoggedIn = false
     
     func loadNotes() {
-        notes = db.read()
+        notes = db.getNotes()
         tableView.reloadData()
     }
     

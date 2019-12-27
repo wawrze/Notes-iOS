@@ -50,7 +50,11 @@ class NoteTableViewController: UITableViewController {
         df.dateFormat = "yyyy-MM-dd hh:mm"
         cell.dateLabel.text = df.string(from: note.date)
         cell.setDone()
+        cell.setIcons()
         cell.tableController = self
+        cell.layer.cornerRadius = 10
+        cell.layer.borderWidth = 5
+        cell.layer.borderColor = UIColor(red: 92.0 / 255.0, green: 154.0 / 255.0, blue: 229.0 / 255.0, alpha: 1.0).cgColor
 
         return cell
     }

@@ -13,7 +13,10 @@ class NoteTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var doneCheckBox: CheckBox2!
+    @IBOutlet weak var doneCheckBox: UIButton!
+    @IBOutlet weak var protectedIcon: UIImageView!
+    @IBOutlet weak var googleIcon: UIImageView!
+    
     var note: NoteModel? = nil
     let db = DBHelper.get()
     var tableController: NoteTableViewController?
@@ -34,16 +37,14 @@ class NoteTableViewCell: UITableViewCell {
     @IBAction func doneButton(_ sender: UIButton) {
         setDone()
         if (note != nil) {
-            note!.done = doneCheckBox.getChecked()
+            note!.done = !(note!.done)
             db.updateNote(noteToUpdate: note!)
-            if (tableController != nil) {
-                tableController!.loadNotes()
-            }
+            tableController?.loadNotes()
         }
     }
     
     func setDone() {
-        if (doneCheckBox.getChecked()) {
+        if (note!.done == true) {
             let title = NSAttributedString(string: titleLabel.text!, attributes: [NSAttributedStringKey.strikethroughStyle: NSUnderlineStyle.styleSingle.rawValue])
             titleLabel.attributedText = title
             let date = NSAttributedString(string: dateLabel.text!, attributes: [NSAttributedStringKey.strikethroughStyle: NSUnderlineStyle.styleSingle.rawValue])
@@ -56,13 +57,19 @@ class NoteTableViewCell: UITableViewCell {
         }
     }
     
+    func setIcons() {
+        if (note != nil) {
+            protectedIcon.isHidden = !(note!.secured)
+            googleIcon.isHidden = note!.calendarEventId.isEmpty
+        }
+    }
+    
     @IBAction func editButton(_ sender: UIButton) {
         if (note != nil) {
             db.deleteNoteByID(id: note!.id)
+            db.deleteCalendarEventByID(id: note!.calendarEventId)
         }
-        if (tableController != nil) {
-            tableController!.loadNotes()
-        }
+        tableController?.loadNotes()
     }
     
 }

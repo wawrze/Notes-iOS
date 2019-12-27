@@ -43,8 +43,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
             return
         }
         if (titleInput.text != nil && !titleInput.text!.isEmpty) {
-            let id_ = db.getNotes().count + 1
-            db.insertNote(id: id_, title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: securityCheckBox.isChecked, done: false)
+            let isSecureChecked = securityCheckBox.isChecked
+            db.insertNote(title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: isSecureChecked, done: false)
             // TODO: send to Google if checkbox is checked
         }
     }

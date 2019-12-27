@@ -90,14 +90,28 @@ class DBHelper {
         sqlite3_finalize(createTableStatement)
     }
     
-    func insertNote(id: Int, title: String, body: String, date: Date, secured: Bool, done: Bool) {
-        let notes = getNotes()
-        for note in notes {
-            if note.id == id {
-                return
+    private func getNoteNextId() -> Int32 {
+        let queryStatementString = "SELECT id FROM note ORDER BY id DESC LIMIT 1;"
+        var queryStatement: OpaquePointer? = nil
+        var id: Int32? = nil
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                id = sqlite3_column_int(queryStatement, 0)
             }
+        } else {
+            print("SELECT note next id statement could not be prepared.")
         }
-        let insertStatementString = "INSERT INTO note (Id, title, body, date, secured, done) VALUES (?, ?, ?, ?, ?, ?)"
+        sqlite3_finalize(queryStatement)
+        if (id == nil) {
+            id = 0
+        }
+        id! += 1
+        return id!
+    }
+    
+    func insertNote(title: String, body: String, date: Date, secured: Bool, done: Bool) {
+        let id = getNoteNextId()
+        let insertStatementString = "INSERT INTO note (id, title, body, date, secured, done) VALUES (?, ?, ?, ?, ?, ?)"
         var insertStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
             sqlite3_bind_int(insertStatement, 1, Int32(id))

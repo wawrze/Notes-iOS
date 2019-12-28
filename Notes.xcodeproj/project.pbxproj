@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F1B647A23B683AC0042734D /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B647923B683AC0042734D /* NoteDetailsViewController.swift */; };
 		5F5EE748239C2BB600725589 /* CheckBox2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5EE747239C2BB600725589 /* CheckBox2.swift */; };
 		5F852EBB23AF85E000D64981 /* GoogleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F852EBA23AF85E000D64981 /* GoogleUser.swift */; };
 		5F852EBD23AF86A300D64981 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F852EBC23AF86A300D64981 /* CalendarEvent.swift */; };
 		5FA490F6239BFFEA0083F33B /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA490F5239BFFEA0083F33B /* NoteTableViewCell.swift */; };
 		5FA490FE239C05CF0083F33B /* NoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA490FD239C05CF0083F33B /* NoteTableViewController.swift */; };
 		5FE5C121239AD74C00BA2051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5C120239AD74C00BA2051 /* AppDelegate.swift */; };
-		5FE5C123239AD74C00BA2051 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5C122239AD74C00BA2051 /* ViewController.swift */; };
+		5FE5C123239AD74C00BA2051 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5C122239AD74C00BA2051 /* NewNoteViewController.swift */; };
 		5FE5C126239AD74C00BA2051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FE5C124239AD74C00BA2051 /* Main.storyboard */; };
 		5FE5C128239AD74C00BA2051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FE5C127239AD74C00BA2051 /* Assets.xcassets */; };
 		5FE5C12B239AD74C00BA2051 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FE5C129239AD74C00BA2051 /* LaunchScreen.storyboard */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F1B647923B683AC0042734D /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
 		5F5EE747239C2BB600725589 /* CheckBox2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox2.swift; sourceTree = "<group>"; };
 		5F852EBA23AF85E000D64981 /* GoogleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleUser.swift; sourceTree = "<group>"; };
 		5F852EBC23AF86A300D64981 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
@@ -31,7 +33,7 @@
 		5FA490FD239C05CF0083F33B /* NoteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewController.swift; sourceTree = "<group>"; };
 		5FE5C11D239AD74C00BA2051 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE5C120239AD74C00BA2051 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5FE5C122239AD74C00BA2051 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5FE5C122239AD74C00BA2051 /* NewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
 		5FE5C125239AD74C00BA2051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5FE5C127239AD74C00BA2051 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FE5C12A239AD74C00BA2051 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,7 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				5FE5C120239AD74C00BA2051 /* AppDelegate.swift */,
-				5FE5C122239AD74C00BA2051 /* ViewController.swift */,
+				5FE5C122239AD74C00BA2051 /* NewNoteViewController.swift */,
 				5FE5C124239AD74C00BA2051 /* Main.storyboard */,
 				5FE5C127239AD74C00BA2051 /* Assets.xcassets */,
 				5FE5C129239AD74C00BA2051 /* LaunchScreen.storyboard */,
@@ -88,6 +90,7 @@
 				5F5EE747239C2BB600725589 /* CheckBox2.swift */,
 				5F852EBA23AF85E000D64981 /* GoogleUser.swift */,
 				5F852EBC23AF86A300D64981 /* CalendarEvent.swift */,
+				5F1B647923B683AC0042734D /* NoteDetailsViewController.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -175,10 +178,11 @@
 				5F852EBD23AF86A300D64981 /* CalendarEvent.swift in Sources */,
 				5F852EBB23AF85E000D64981 /* GoogleUser.swift in Sources */,
 				5FA490FE239C05CF0083F33B /* NoteTableViewController.swift in Sources */,
-				5FE5C123239AD74C00BA2051 /* ViewController.swift in Sources */,
+				5FE5C123239AD74C00BA2051 /* NewNoteViewController.swift in Sources */,
 				5FE5C13A239B140500BA2051 /* NoteModel.swift in Sources */,
 				5F5EE748239C2BB600725589 /* CheckBox2.swift in Sources */,
 				5FE5C13C239B16D100BA2051 /* DBHelper.swift in Sources */,
+				5F1B647A23B683AC0042734D /* NoteDetailsViewController.swift in Sources */,
 				5FE5C121239AD74C00BA2051 /* AppDelegate.swift in Sources */,
 				5FE5C133239ADE9300BA2051 /* CheckBox.swift in Sources */,
 				5FA490F6239BFFEA0083F33B /* NoteTableViewCell.swift in Sources */,

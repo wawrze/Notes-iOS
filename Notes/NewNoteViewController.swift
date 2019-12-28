@@ -10,7 +10,7 @@ import UIKit
 import Speech
 import os.log
 
-class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SFSpeechRecognizerDelegate {
+class NewNoteViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SFSpeechRecognizerDelegate {
   
     var db = DBHelper.get()
     
@@ -26,6 +26,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
     
     //@IBOutlet weak var securitySection: UIStackView!
     @IBOutlet weak var securityCheckBox: CheckBox!
+    
+    @IBOutlet weak var buttonsSection: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

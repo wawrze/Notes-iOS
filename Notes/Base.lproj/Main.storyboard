@@ -135,6 +135,7 @@
                                     <outlet property="googleIcon" destination="cqL-QA-hCz" id="c3C-0F-lcm"/>
                                     <outlet property="protectedIcon" destination="LqC-Du-3X9" id="kq9-zW-kw5"/>
                                     <outlet property="titleLabel" destination="UQe-yz-CBx" id="OI1-Ax-2Hk"/>
+                                    <segue destination="Agr-H4-4PW" kind="show" identifier="ShowNoteDetails" id="4IA-cY-m9M"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -155,7 +156,7 @@
                             <inset key="imageInsets" minX="250" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <color key="tintColor" red="0.93333333333333335" green="0.82745098039215681" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="wUG-VO-nEi" kind="presentation" identifier="AddNote" id="9ND-3c-pWD"/>
+                                <segue destination="mfa-QD-IUK" kind="show" identifier="AddNote" id="xZ8-Y7-OI5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -170,13 +171,13 @@
         <!--Nowa notatka-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="NewNoteViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fYp-Mf-W1R">
-                                <rect key="frame" x="20" y="83.5" width="335" height="563.5"/>
+                                <rect key="frame" x="20" y="84" width="335" height="563"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tytuł notatki:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nM4-Rn-ppn">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="17"/>
@@ -185,13 +186,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tytuł notatki" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sXX-Vw-aa2">
-                                        <rect key="frame" x="0.0" y="25" width="335" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="25" width="335" height="25"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treść notatki:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0g-5P-szy">
-                                        <rect key="frame" x="0.0" y="58.5" width="335" height="17"/>
+                                        <rect key="frame" x="0.0" y="58" width="335" height="17.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -206,7 +207,7 @@
                                                     <constraint firstAttribute="width" constant="297" id="Cq9-ke-mfA"/>
                                                     <constraint firstAttribute="height" constant="250" id="Moc-hi-LnO"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="center" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bud-ts-S2F">
@@ -258,13 +259,13 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data i godzina:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pet-nf-itb">
-                                        <rect key="frame" x="0.0" y="341.5" width="335" height="38"/>
+                                        <rect key="frame" x="0.0" y="341.5" width="335" height="37.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="j4s-cb-NVq">
-                                        <rect key="frame" x="0.0" y="387.5" width="335" height="100"/>
+                                        <rect key="frame" x="0.0" y="387" width="335" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="nty-lY-ejb"/>
                                         </constraints>
@@ -273,7 +274,7 @@
                                         </date>
                                     </datePicker>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Iwp-gD-in7">
-                                        <rect key="frame" x="0.0" y="495.5" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="495" width="335" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2se-TL-b5H" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -292,7 +293,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LUa-Bo-7Um">
-                                        <rect key="frame" x="0.0" y="533.5" width="335" height="30"/>
+                                        <rect key="frame" x="0.0" y="533" width="335" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgA-Vt-1MC" customClass="CheckBox" customModule="Notes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -342,6 +343,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bodyInput" destination="Dy7-za-o4p" id="6Yz-GD-HP6"/>
+                        <outlet property="buttonsSection" destination="bud-ts-S2F" id="Djm-ZB-KQx"/>
                         <outlet property="datePicker" destination="j4s-cb-NVq" id="ZJX-sO-7wF"/>
                         <outlet property="googleCheckBox" destination="2se-TL-b5H" id="B86-LQ-akz"/>
                         <outlet property="googleSection" destination="Iwp-gD-in7" id="i8M-83-5Qi"/>
@@ -354,7 +356,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="tDa-dp-x4n" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1149.5999999999999" y="88.605697151424295"/>
+            <point key="canvasLocation" x="1295" y="90"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jLv-sv-9AN">
@@ -375,24 +377,194 @@
             </objects>
             <point key="canvasLocation" x="-946" y="90"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="LrJ-qU-aso">
+        <!--Szczegóły notatki-->
+        <scene sceneID="DGF-NY-QqQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wUG-VO-nEi" sceneMemberID="viewController">
+                <viewController title="Szczegóły notatki" id="9UD-Q9-dAz" customClass="NoteDetailsViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dWZ-Kb-mnf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Kyg-Mb-hk5">
+                                <rect key="frame" x="20" y="84" width="297" height="624"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tytuł notatki:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65M-lQ-oAx">
+                                        <rect key="frame" x="0.0" y="0.0" width="297" height="34.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34.5" id="8XJ-lD-DZ1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tytuł notatki" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYk-Ra-afh">
+                                        <rect key="frame" x="0.0" y="42.5" width="297" height="34.5"/>
+                                        <color key="backgroundColor" red="0.75686274509999996" green="0.80000000000000004" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.75686274509999996" green="0.80000000000000004" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34.5" id="RS9-KO-GJo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treść notatki:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFB-5X-2a4">
+                                        <rect key="frame" x="0.0" y="85" width="297" height="34.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34.5" id="WdN-gM-eXX"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="297" verticalHuggingPriority="142" horizontalCompressionResistancePriority="297" verticalCompressionResistancePriority="142" placeholderIntrinsicWidth="297" placeholderIntrinsicHeight="142" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" editable="NO" text="treść notatki" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I87-ac-qfz">
+                                        <rect key="frame" x="0.0" y="127.5" width="297" height="326.5"/>
+                                        <color key="backgroundColor" red="0.75686274509999996" green="0.80000000000000004" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.75686274509999996" green="0.80000000000000004" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="230" id="ts3-05-282"/>
+                                            <constraint firstAttribute="width" constant="297" id="wny-eV-gFl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data i godzina:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtS-ul-xOu">
+                                        <rect key="frame" x="0.0" y="462" width="297" height="34.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34.5" id="MM6-Pq-S1u"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27/12/2019 15:02" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYA-Og-gd0">
+                                        <rect key="frame" x="0.0" y="504.5" width="297" height="34.5"/>
+                                        <color key="backgroundColor" red="0.75686274509999996" green="0.80000000000000004" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34.5" id="2fH-Vo-Ban"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="j4I-sr-TcV">
+                                        <rect key="frame" x="0.0" y="547" width="297" height="34.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ya5-F9-a6z">
+                                                <rect key="frame" x="0.0" y="2" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="FaR-zm-ZyP"/>
+                                                    <constraint firstAttribute="height" constant="30" id="vGy-0p-Kz5"/>
+                                                </constraints>
+                                                <state key="normal" image="ic_google"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Synchronizowana z kalendarzem Google" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQo-LO-J43">
+                                                <rect key="frame" x="38" y="7" width="259" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34.5" id="d6v-Um-8Vh"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="K1z-tV-TFn">
+                                        <rect key="frame" x="0.0" y="589.5" width="297" height="34.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arJ-aw-1bH">
+                                                <rect key="frame" x="0.0" y="2" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="0mu-vu-90g"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="34c-4f-edy"/>
+                                                    <constraint firstAttribute="width" constant="30" id="E9D-WZ-JDD"/>
+                                                </constraints>
+                                                <size key="titleShadowOffset" width="16" height="16"/>
+                                                <state key="normal" image="ic_fingerprint"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zabezpieczona" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b4-X7-tro">
+                                                <rect key="frame" x="38" y="7" width="259" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34.5" id="50y-QH-Wmi"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.36078431370000003" green="0.60392156860000001" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Kyg-Mb-hk5" secondAttribute="bottom" constant="20" symbolic="YES" id="1kf-GD-urY"/>
+                            <constraint firstItem="Kyg-Mb-hk5" firstAttribute="centerX" secondItem="dWZ-Kb-mnf" secondAttribute="centerX" id="Ldm-Cj-be9"/>
+                            <constraint firstItem="Kyg-Mb-hk5" firstAttribute="leading" secondItem="4JV-hJ-1ql" secondAttribute="leading" constant="20" id="RHc-8a-PRV"/>
+                            <constraint firstItem="4JV-hJ-1ql" firstAttribute="trailing" secondItem="Kyg-Mb-hk5" secondAttribute="trailing" constant="20" id="en7-NA-RMB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kyg-Mb-hk5" secondAttribute="trailing" constant="20" id="upb-vS-sSb"/>
+                            <constraint firstItem="Kyg-Mb-hk5" firstAttribute="top" secondItem="4JV-hJ-1ql" secondAttribute="top" constant="20" id="wiR-0G-SEg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4JV-hJ-1ql"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Nowa notatka" id="6kQ-xT-RyJ">
+                        <barButtonItem key="leftBarButtonItem" image="ic_cancel" width="30" id="pgp-1G-7ys">
+                            <inset key="imageInsets" minX="0.0" minY="0.0" maxX="600" maxY="0.0"/>
+                            <color key="tintColor" red="0.93333333330000001" green="0.82745098039999998" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancel:" destination="9UD-Q9-dAz" id="YmJ-IK-tY2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="googleSection" destination="j4I-sr-TcV" id="Zd4-72-hFI"/>
+                        <outlet property="noteBody" destination="I87-ac-qfz" id="t9h-Ov-fyg"/>
+                        <outlet property="noteDate" destination="ZYA-Og-gd0" id="FyU-DS-PQX"/>
+                        <outlet property="noteTitle" destination="FYk-Ra-afh" id="1ik-76-cy0"/>
+                        <outlet property="securitySection" destination="K1z-tV-TFn" id="7ob-AW-ngi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mjT-TQ-F5P" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="510" y="878"/>
+        </scene>
+        <!--Szczegóły notatki-->
+        <scene sceneID="bPz-zR-DN8">
+            <objects>
+                <navigationController title="Szczegóły notatki" automaticallyAdjustsScrollViewInsets="NO" id="Agr-H4-4PW" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Hgn-qW-xs3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ptJ-g7-qeG">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.058823529409999999" green="0.64313725489999995" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="cRp-ip-ovd"/>
+                        <segue destination="9UD-Q9-dAz" kind="relationship" relationship="rootViewController" id="c2i-0T-ps3"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8HQ-88-c5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ive-QS-Guc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="459.19999999999999" y="89.055472263868069"/>
+            <point key="canvasLocation" x="-208" y="878.86056971514245"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="coe-Ya-RhG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mfa-QD-IUK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zdJ-uo-VkB">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.058823529409999999" green="0.64313725489999995" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="MHd-km-EY8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cqI-Pu-Att" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="510" y="89"/>
         </scene>
     </scenes>
     <resources>

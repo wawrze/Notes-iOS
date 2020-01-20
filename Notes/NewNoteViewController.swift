@@ -47,8 +47,15 @@ class NewNoteViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         }
         if (titleInput.text != nil && !titleInput.text!.isEmpty) {
             let isSecureChecked = securityCheckBox.isChecked
-            db.insertNote(title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: isSecureChecked, done: false)
-            // TODO: send to Google if checkbox is checked
+            let _noteId = db.insertNote(title: titleInput.text!, body: bodyInput.text, date: datePicker.date, secured: isSecureChecked, done: false)
+            let isGoogleChecked = googleCheckBox.isChecked
+            if (isGoogleChecked) {
+                let user = db.getGoogleUser()
+                if (user != nil) {
+                    let calendarEvent = CalendarEvent(id: 0, noteId: Int(_noteId), googleUser: user!.accountName)
+                    db.insertCalendarEvent(event: calendarEvent)
+                }
+            }
         }
     }
     
@@ -66,17 +73,26 @@ class NewNoteViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     
     @IBAction func microphoneButton(_ sender: UIButton) {
         if (recognitionInProgress) {
+            print("stopping voice recognition...")
             recognitionInProgress = false
-            let image = UIImage(named: "ic_microphone")?.withRenderingMode(.alwaysTemplate)
-            microphoneImage.setImage(image, for: .normal)
-            microphoneImage.tintColor = UIColor.black
             self.recognitionTask?.finish()
         } else {
+            print("starting voice recognition...")
             recognitionInProgress = true
+            self.recordAndRecognizeSpeech()
+        }
+        setRecognitionIcon()
+    }
+    
+    private func setRecognitionIcon() {
+        if (recognitionInProgress) {
             let image = UIImage(named: "ic_microphone")?.withRenderingMode(.alwaysTemplate)
             microphoneImage.setImage(image, for: .normal)
             microphoneImage.tintColor = UIColor.red
-            self.recordAndRecognizeSpeech()
+        } else {
+            let image = UIImage(named: "ic_microphone")?.withRenderingMode(.alwaysTemplate)
+            microphoneImage.setImage(image, for: .normal)
+            microphoneImage.tintColor = UIColor.black
         }
     }
     

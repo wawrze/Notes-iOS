@@ -30,7 +30,8 @@ class NoteDetailsViewController: UIViewController {
             df.dateFormat = "yyyy-MM-dd hh:mm"
             noteDate.text = df.string(from: note!.date)
             
-            googleSection.isHidden = note!.calendarEventId.isEmpty
+            let user = db.getGoogleUser()
+            googleSection.isHidden = note!.calendarEventId.isEmpty || user == nil
             securitySection.isHidden = !(note!.secured)
         }
     }

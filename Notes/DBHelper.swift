@@ -76,7 +76,7 @@ class DBHelper {
     }
     
     func createCalendarEventTable() {
-        let createTableString = "CREATE TABLE IF NOT EXISTS calendar_event(id TEXT PRIMARY KEY, note_id INTEGER, google_user TEXT);"
+        let createTableString = "CREATE TABLE IF NOT EXISTS calendar_event(id INTEGER PRIMARY KEY, note_id INTEGER, google_user TEXT);"
         var createTableStatement: OpaquePointer? = nil
         if (sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK) {
             if sqlite3_step(createTableStatement) == SQLITE_DONE {
@@ -109,7 +109,7 @@ class DBHelper {
         return id!
     }
     
-    func insertNote(title: String, body: String, date: Date, secured: Bool, done: Bool) {
+    func insertNote(title: String, body: String, date: Date, secured: Bool, done: Bool) -> Int32 {
         let id = getNoteNextId()
         let insertStatementString = "INSERT INTO note (id, title, body, date, secured, done) VALUES (?, ?, ?, ?, ?, ?)"
         var insertStatement: OpaquePointer? = nil
@@ -143,6 +143,7 @@ class DBHelper {
             print("INSERT note could not be prepared.")
         }
         sqlite3_finalize(insertStatement)
+        return id
     }
 
     func updateNote(noteToUpdate: NoteModel) {
@@ -275,6 +276,8 @@ class DBHelper {
             sqlite3_bind_int(deleteStatement, 1, Int32(id))
             if sqlite3_step(deleteStatement) == SQLITE_DONE {
                 print("successfully deleted note.")
+                let _id = id
+                deleteCalendarEventByNoteID(id: _id)
             } else {
                 print("could not delete note.")
             }
@@ -290,11 +293,11 @@ class DBHelper {
         var calendarEvents: [CalendarEvent] = []
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
-                let id_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 0)))
+                let id_ = sqlite3_column_int(queryStatement, 0)
                 let noteId_ = sqlite3_column_int(queryStatement, 1)
                 let googleUser_ = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
 
-                let calendarEvent = CalendarEvent(id: id_, noteId: Int(noteId_), googleUser: googleUser_)
+                let calendarEvent = CalendarEvent(id: Int(id_), noteId: Int(noteId_), googleUser: googleUser_)
                 calendarEvents.append(calendarEvent)
             }
         } else {
@@ -304,19 +307,33 @@ class DBHelper {
         return calendarEvents
     }
     
-    func insertCalendarEvent(event: CalendarEvent) {
-        let calendarEvents = getCalendarEvents()
-        for ca in calendarEvents {
-            if ca.id == event.id {
-                return
+    private func getCalendarEventNextId() -> Int32 {
+        let queryStatementString = "SELECT id FROM calendar_event ORDER BY id DESC LIMIT 1;"
+        var queryStatement: OpaquePointer? = nil
+        var id: Int32? = nil
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                id = sqlite3_column_int(queryStatement, 0)
             }
+        } else {
+            print("SELECT calendar event next id statement could not be prepared.")
         }
+        sqlite3_finalize(queryStatement)
+        if (id == nil) {
+            id = 0
+        }
+        id! += 1
+        return id!
+    }
+    
+    func insertCalendarEvent(event: CalendarEvent) {
+        let id = getCalendarEventNextId()
         let insertStatementString = "INSERT INTO calendar_event (id, note_id, google_user) VALUES (?, ?, ?)"
         var insertStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
-            sqlite3_bind_text(insertStatement, 0, (event.id as NSString).utf8String, -1, nil)
-            sqlite3_bind_int(insertStatement, 1, Int32(event.noteId))
-            sqlite3_bind_text(insertStatement, 2, (event.googleUser as NSString).utf8String, -1, nil)
+            sqlite3_bind_int(insertStatement, 1, Int32(id))
+            sqlite3_bind_int(insertStatement, 2, Int32(event.noteId))
+            sqlite3_bind_text(insertStatement, 3, (event.googleUser as NSString).utf8String, -1, nil)
             if sqlite3_step(insertStatement) == SQLITE_DONE {
                 print("successfully inserted calendar_event.")
             } else {
@@ -328,11 +345,11 @@ class DBHelper {
         sqlite3_finalize(insertStatement)
     }
     
-    func deleteCalendarEventByID(id: String) {
-        let deleteStatementString = "DELETE FROM calendar_event WHERE id = ?;"
+    func deleteCalendarEventByNoteID(id: Int) {
+        let deleteStatementString = "DELETE FROM calendar_event WHERE note_id = ?;"
         var deleteStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) == SQLITE_OK {
-            sqlite3_bind_text(deleteStatement, 0, (id as NSString).utf8String, -1, nil)
+            sqlite3_bind_int(deleteStatement, 1, Int32(id))
             if sqlite3_step(deleteStatement) == SQLITE_DONE {
                 print("successfully deleted calendar_event.")
             } else {
@@ -346,15 +363,17 @@ class DBHelper {
     
     func insertGoogleUser(googleUser: GoogleUser) {
         deleteGoogleUser()
-        let insertStatementString = "INSERT INTO google_user (id, token, accountName, mainCalendar) VALUES (?, ?, ?, ?)"
+        
+        let insertStatementString = "INSERT INTO google_user (id, token, account_name, mainCalendar) VALUES (?, ?, ?, ?)"
         var insertStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
-            sqlite3_bind_int(insertStatement, 0, Int32(googleUser.id))
-            sqlite3_bind_text(insertStatement, 1, (googleUser.token as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 2, (googleUser.accountName as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 3, (googleUser.mainCalendar as NSString).utf8String, -1, nil)
-            if sqlite3_step(insertStatement) == SQLITE_DONE {
-                print("successfully inserted google_user.")
+            sqlite3_bind_int(insertStatement, 1, Int32(googleUser.id))
+            sqlite3_bind_text(insertStatement, 2, (googleUser.token as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 3, (googleUser.accountName as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 4, (googleUser.mainCalendar as NSString).utf8String, -1, nil)
+            let statement = sqlite3_step(insertStatement)
+            if statement == SQLITE_DONE {
+                print("successfully  google_user.")
             } else {
                 print("could not insert google_user.")
             }
@@ -421,7 +440,7 @@ class DBHelper {
         var mainCalendar: String? = nil
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
-                mainCalendar = String(describing: String(cString: sqlite3_column_text(queryStatement, 3)))
+                mainCalendar = String(describing: String(cString: sqlite3_column_text(queryStatement, 1)))
             }
         } else {
             print("SELECT main_calendar statement could not be prepared.")

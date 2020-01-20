@@ -14,7 +14,6 @@ class NoteTableViewController: UITableViewController {
     var db = DBHelper.get()
     @IBOutlet weak var googleImage: UIBarButtonItem!
     var notes:[NoteModel] = []
-    private var googleLoggedIn = false
     
     func loadNotes() {
         notes = db.getNotes()
@@ -24,6 +23,7 @@ class NoteTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadNotes()
+        setGoogleIcon()
     }
 
     // MARK: - Table view data source
@@ -64,18 +64,27 @@ class NoteTableViewController: UITableViewController {
     }
     
     @IBAction func googleLogIn(_ sender: UIBarButtonItem) {
-        print("Google button clicked")
-        if (googleLoggedIn) {
-            googleLoggedIn = false
+        let googleUser = db.getGoogleUser()
+        if (googleUser != nil) {
+            db.deleteGoogleUser()
+        } else {
+            let user = GoogleUser(id: Int(arc4random_uniform(10000)), token: "token", accountName: "name", mainCalendar: "calendar")
+            db.insertGoogleUser(googleUser: user)
+        }
+        setGoogleIcon()
+        loadNotes()
+    }
+
+    private func setGoogleIcon() {
+        let googleUser = db.getGoogleUser()
+        if (googleUser == nil) {
             let image = UIImage(named: "ic_google")?.withRenderingMode(.alwaysTemplate)
             googleImage.image = image
         } else {
-            googleLoggedIn = true
             let image = UIImage(named: "ic_google_filled")?.withRenderingMode(.alwaysTemplate)
             googleImage.image = image
         }
     }
-
     
     // MARK: - Navigation
     

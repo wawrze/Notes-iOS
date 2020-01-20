@@ -60,14 +60,14 @@ class NoteTableViewCell: UITableViewCell {
     func setIcons() {
         if (note != nil) {
             protectedIcon.isHidden = !(note!.secured)
-            googleIcon.isHidden = note!.calendarEventId.isEmpty
+            let user = db.getGoogleUser()
+            googleIcon.isHidden = note!.calendarEventId.isEmpty || user == nil
         }
     }
     
     @IBAction func editButton(_ sender: UIButton) {
         if (note != nil) {
             db.deleteNoteByID(id: note!.id)
-            db.deleteCalendarEventByID(id: note!.calendarEventId)
         }
         tableController?.loadNotes()
     }

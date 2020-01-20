@@ -11,6 +11,7 @@
 		5F5EE748239C2BB600725589 /* CheckBox2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5EE747239C2BB600725589 /* CheckBox2.swift */; };
 		5F852EBB23AF85E000D64981 /* GoogleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F852EBA23AF85E000D64981 /* GoogleUser.swift */; };
 		5F852EBD23AF86A300D64981 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F852EBC23AF86A300D64981 /* CalendarEvent.swift */; };
+		5F8F087323D63DF90005A1B0 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8F087223D63DF90005A1B0 /* LocalAuthentication.framework */; };
 		5FA490F6239BFFEA0083F33B /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA490F5239BFFEA0083F33B /* NoteTableViewCell.swift */; };
 		5FA490FE239C05CF0083F33B /* NoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA490FD239C05CF0083F33B /* NoteTableViewController.swift */; };
 		5FE5C121239AD74C00BA2051 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE5C120239AD74C00BA2051 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 		5F5EE747239C2BB600725589 /* CheckBox2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox2.swift; sourceTree = "<group>"; };
 		5F852EBA23AF85E000D64981 /* GoogleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleUser.swift; sourceTree = "<group>"; };
 		5F852EBC23AF86A300D64981 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
+		5F8F087223D63DF90005A1B0 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		5FA490F5239BFFEA0083F33B /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		5FA490FD239C05CF0083F33B /* NoteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewController.swift; sourceTree = "<group>"; };
 		5FE5C11D239AD74C00BA2051 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F8F087323D63DF90005A1B0 /* LocalAuthentication.framework in Frameworks */,
 				5FE5C138239B137E00BA2051 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,6 +101,7 @@
 		5FE5C136239B137D00BA2051 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F8F087223D63DF90005A1B0 /* LocalAuthentication.framework */,
 				5FE5C137239B137D00BA2051 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;

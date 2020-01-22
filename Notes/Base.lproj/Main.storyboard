@@ -519,8 +519,11 @@
                     <connections>
                         <outlet property="googleSection" destination="j4I-sr-TcV" id="Zd4-72-hFI"/>
                         <outlet property="noteBody" destination="I87-ac-qfz" id="t9h-Ov-fyg"/>
+                        <outlet property="noteBodyLabel" destination="MFB-5X-2a4" id="dFZ-0d-lhm"/>
                         <outlet property="noteDate" destination="ZYA-Og-gd0" id="FyU-DS-PQX"/>
+                        <outlet property="noteDateLabel" destination="FtS-ul-xOu" id="1Xw-tj-Baf"/>
                         <outlet property="noteTitle" destination="FYk-Ra-afh" id="1ik-76-cy0"/>
+                        <outlet property="noteTitleLabel" destination="65M-lQ-oAx" id="M06-1Q-bDS"/>
                         <outlet property="securitySection" destination="K1z-tV-TFn" id="7ob-AW-ngi"/>
                     </connections>
                 </viewController>

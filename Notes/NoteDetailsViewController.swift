@@ -14,6 +14,9 @@ class NoteDetailsViewController: UIViewController {
     var db = DBHelper.get()
     var note: NoteModel?
     
+    @IBOutlet weak var noteTitleLabel: UILabel!
+    @IBOutlet weak var noteBodyLabel: UILabel!
+    @IBOutlet weak var noteDateLabel: UILabel!
     @IBOutlet weak var noteTitle: UILabel!
     @IBOutlet weak var noteBody: UITextView!
     @IBOutlet weak var noteDate: UILabel!
@@ -22,10 +25,19 @@ class NoteDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        noteTitleLabel.isHidden = true
+        noteBodyLabel.isHidden = true
+        noteDateLabel.isHidden = true
+        noteTitle.isHidden = true
+        noteBody.isHidden = true
+        noteDate.isHidden = true
+        googleSection.isHidden = true
+        securitySection.isHidden = true
         if (note != nil) {
             if (note!.secured) {
                 authenticationWithTouchID()
+            } else {
+                bindNote()
             }
         }
     }
@@ -35,22 +47,35 @@ class NoteDetailsViewController: UIViewController {
     }
     
     func bindNote() {
-        if (note != nil) {
-            noteTitle.text = note!.title
-            noteBody.text = note!.body
+        DispatchQueue.main.async {
+            if (self.note != nil) {
+                self.noteTitleLabel.isHidden = false
+                self.noteBodyLabel.isHidden = false
+                self.noteDateLabel.isHidden = false
+                self.noteTitle.isHidden = false
+                self.noteBody.isHidden = false
+                self.noteDate.isHidden = false
+                
+                self.noteTitle.text = self.note!.title
+                self.noteBody.text = self.note!.body
             
-            let df = DateFormatter()
-            df.dateFormat = "yyyy-MM-dd hh:mm"
-            noteDate.text = df.string(from: note!.date)
+                let df = DateFormatter()
+                df.dateFormat = "yyyy-MM-dd hh:mm"
+                self.noteDate.text = df.string(from: self.note!.date)
             
-            let user = db.getGoogleUser()
-            googleSection.isHidden = note!.calendarEventId.isEmpty || user == nil
-            securitySection.isHidden = !(note!.secured)
+                let user = self.db.getGoogleUser()
+                self.googleSection.isHidden = self.note!.calendarEventId.isEmpty || user == nil
+                self.securitySection.isHidden = !(self.note!.secured)
+            }
         }
     }
-    
-    func authorizationError(message: String) {
-        noteBody.text = message
+
+    func authError(msg: String) {
+        let alert = UIAlertController(title: "Błąd autoryzacji", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true)
     }
     
 }
@@ -72,16 +97,16 @@ extension NoteDetailsViewController {
                     guard let error = evaluateError else {
                         return
                     }
-                    let msg = self.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code)
-                    self.authorizationError(message: msg)
+                    let _msg = self.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code)
+                    self.authError(msg: _msg)
                 }
             }
         } else {
             guard let error = authError else {
                 return
             }
-            //TODO: Show appropriate alert if biometry/TouchID/FaceID is lockout or not enrolled
-            print(self.evaluateAuthenticationPolicyMessageForLA(errorCode: error.code))
+            let _msg = self.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code)
+            self.authError(msg: _msg)
         }
     }
     
@@ -96,7 +121,7 @@ extension NoteDetailsViewController {
                 message = "Nie można przeprowadzić autoryzacji, ponieważ autoryzacja nie powiodła się zbyt wiele razy."
                 
             case LAError.biometryNotEnrolled.rawValue:
-                message = "Nie można przeprowadzić autoryzacji, ponieważ użytkownik nie skonfigurował biometrii."
+                message = "Nie można przeprowadzić autoryzacji, ponieważ biometria nie została skonfigurowana."
                 
             default:
                 message = "Nieznany błąd autoryzacji."
@@ -127,7 +152,7 @@ extension NoteDetailsViewController {
         switch errorCode {
             
         case LAError.authenticationFailed.rawValue:
-            message = "Autoryzacja nieudana - nieprawidłowe dane."
+            message = "Autoryzacja nie powiodła się."
             
         case LAError.appCancel.rawValue:
             message = "Autoryzacja została anulowana przez aplikację."

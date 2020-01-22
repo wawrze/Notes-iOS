@@ -66,13 +66,32 @@ class NoteTableViewController: UITableViewController {
     @IBAction func googleLogIn(_ sender: UIBarButtonItem) {
         let googleUser = db.getGoogleUser()
         if (googleUser != nil) {
-            db.deleteGoogleUser()
+            let alert = UIAlertController(title: "Wylogowanie", message: "Czy na pewno chcesz się wylogować z konta Google \(googleUser!.accountName)?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Nie", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Tak", style: .default, handler: { action in
+                self.db.deleteGoogleUser()
+                self.logoutMessage()
+            }))
+            self.present(alert, animated: true)
         } else {
-            let user = GoogleUser(id: Int(arc4random_uniform(10000)), token: "token", accountName: "name", mainCalendar: "calendar")
+            let user = GoogleUser(id: Int(arc4random_uniform(10000)), token: "token", accountName: "nazwa.konta@gmail.com", mainCalendar: "calendar")
             db.insertGoogleUser(googleUser: user)
+            let alert = UIAlertController(title: "Logowanie", message: "Zalogowano na konto Google: \(user.accountName)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                self.setGoogleIcon()
+                self.loadNotes()
+            }))
+            self.present(alert, animated: true)
         }
-        setGoogleIcon()
-        loadNotes()
+    }
+    
+    func logoutMessage() {
+        let alert = UIAlertController(title: "Wylogowanie", message: "Wylogowano z konta Google.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.setGoogleIcon()
+            self.loadNotes()
+        }))
+        self.present(alert, animated: true)
     }
 
     private func setGoogleIcon() {

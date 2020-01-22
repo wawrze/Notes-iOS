@@ -56,6 +56,8 @@ class NewNoteViewController: UIViewController, UITextFieldDelegate, UITextViewDe
                     db.insertCalendarEvent(event: calendarEvent)
                 }
             }
+            let alert = UIAlertController(title: "", message: "Notatka została dodana.", preferredStyle: .alert)
+            self.present(alert, animated: true)
         }
     }
     

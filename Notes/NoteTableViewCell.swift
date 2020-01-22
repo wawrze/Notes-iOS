@@ -67,9 +67,14 @@ class NoteTableViewCell: UITableViewCell {
     
     @IBAction func editButton(_ sender: UIButton) {
         if (note != nil) {
-            db.deleteNoteByID(id: note!.id)
+            let alert = UIAlertController(title: "Usuwanie", message: "Czy na pewno chcesz usunąć notatkę?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Nie", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Tak", style: .default, handler: { action in
+                self.db.deleteNoteByID(id: self.note!.id)
+                self.tableController?.loadNotes()
+            }))
+            self.tableController?.present(alert, animated: true)
         }
-        tableController?.loadNotes()
     }
     
 }
